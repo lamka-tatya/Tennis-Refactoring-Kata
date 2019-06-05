@@ -1,42 +1,45 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
-        private int _player1Score;
-        private int _player2Score;
         private const string Player1 = "player1";
         private const string Player2 = "player2";
 
-        public void WonPoint(string playerName)
+        private readonly Dictionary<string, int> _scores = new Dictionary<string, int>()
         {
-            if (playerName == Player1)
-            {
-                _player1Score += 1;
-            }
-            else
-            {
-                _player2Score += 1;
-            }
-        }
+            {Player1, 0},
+            {Player2, 0}
+        };
+
+        public void WonPoint(string playerName) => _scores[playerName] += 1;
 
         public string GetScore()
         {
-            if (_player1Score == _player2Score)
+            if (IsDraw())
             {
                 return GetScoreForDraw();
             }
 
-            if (_player1Score >= 4 || _player2Score >= 4)
-            {
-                return GetScoreForGreaterThen4Score();
-            }
-
-            return GetScoreForLessThen4Score();
+            return IsGreaterThen4Score()
+                ? GetScoreForGreaterThen4Score()
+                : GetScoreForLessThen4Score();
         }
 
-        private string GetScoreForLessThen4Score() => $"{GetScoreText(_player1Score)}-{GetScoreText(_player2Score)}";
+        private bool IsGreaterThen4Score()
+        {
+            return _scores[Player1] >= 4 || _scores[Player2] >= 4;
+        }
+
+        private bool IsDraw()
+        {
+            return _scores[Player1] == _scores[Player2];
+        }
+
+        private string GetScoreForLessThen4Score() =>
+            $"{GetScoreText(_scores[Player1])}-{GetScoreText(_scores[Player2])}";
 
         private static string GetScoreText(int tempScore)
         {
@@ -57,8 +60,10 @@ namespace Tennis
 
         private string GetScoreForGreaterThen4Score()
         {
-            var scoresDifference = _player1Score - _player2Score;
-            var winner = scoresDifference > 0 ? Player1 : Player2;
+            var scoresDifference = _scores[Player1] - _scores[Player2];
+            var winner = scoresDifference > 0
+                ? Player1
+                : Player2;
 
             return Math.Abs(scoresDifference) == 1
                 ? $"Advantage {winner}"
@@ -67,7 +72,7 @@ namespace Tennis
 
         private string GetScoreForDraw()
         {
-            switch (_player1Score)
+            switch (_scores[Player1])
             {
                 case 0:
                     return "Love-All";
