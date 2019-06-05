@@ -6,10 +6,12 @@ namespace Tennis
     {
         private int _player1Score;
         private int _player2Score;
+        private const string Player1 = "player1";
+        private const string Player2 = "player2";
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
+            if (playerName == Player1)
             {
                 _player1Score += 1;
             }
@@ -56,7 +58,7 @@ namespace Tennis
         private string GetScoreForGreaterThen4Score()
         {
             var scoresDifference = _player1Score - _player2Score;
-            var winner = scoresDifference > 0 ? "player1" : "player2";
+            var winner = scoresDifference > 0 ? Player1 : Player2;
 
             return Math.Abs(scoresDifference) == 1
                 ? $"Advantage {winner}"
