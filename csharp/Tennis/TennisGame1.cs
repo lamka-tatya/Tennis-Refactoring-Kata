@@ -32,29 +32,7 @@ namespace Tennis
             return GetScoreForLessThen4Score();
         }
 
-        private string GetScoreForLessThen4Score()
-        {
-            var score = "";
-            
-            for (var i = 1; i < 3; i++)
-            {
-                int tempScore;
-                
-                if (i == 1)
-                {
-                    tempScore = _player1Score;
-                }
-                else
-                {
-                    score += "-";
-                    tempScore = _player2Score;
-                }
-
-                score += GetScoreText(tempScore);
-            }
-
-            return score;
-        }
+        private string GetScoreForLessThen4Score() => $"{GetScoreText(_player1Score)}-{GetScoreText(_player2Score)}";
 
         private static string GetScoreText(int tempScore)
         {
