@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -53,26 +55,12 @@ namespace Tennis
 
         private string GetScoreForGreaterThen4Score()
         {
-            string score;
-            var minusResult = _player1Score - _player2Score;
-            if (minusResult == 1)
-            {
-                score = "Advantage player1";
-            }
-            else if (minusResult == -1)
-            {
-                score = "Advantage player2";
-            }
-            else if (minusResult >= 2)
-            {
-                score = "Win for player1";
-            }
-            else
-            {
-                score = "Win for player2";
-            }
+            var scoresDifference = _player1Score - _player2Score;
+            var winner = scoresDifference > 0 ? "player1" : "player2";
 
-            return score;
+            return Math.Abs(scoresDifference) == 1
+                ? $"Advantage {winner}"
+                : $"Win for {winner}";
         }
 
         private string GetScoreForDraw()
