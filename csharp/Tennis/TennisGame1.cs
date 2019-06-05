@@ -28,15 +28,9 @@ namespace Tennis
                 : GetScoreForLessThen4Score();
         }
 
-        private bool IsGreaterThen4Score()
-        {
-            return _scores[Player1] >= 4 || _scores[Player2] >= 4;
-        }
+        private bool IsGreaterThen4Score() => _scores[Player1] >= 4 || _scores[Player2] >= 4;
 
-        private bool IsDraw()
-        {
-            return _scores[Player1] == _scores[Player2];
-        }
+        private bool IsDraw() => _scores[Player1] == _scores[Player2];
 
         private string GetScoreForLessThen4Score() =>
             $"{GetScoreText(_scores[Player1])}-{GetScoreText(_scores[Player2])}";
