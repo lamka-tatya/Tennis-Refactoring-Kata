@@ -23,7 +23,7 @@ namespace Tennis
             {
                 return GetScoreForDraw();
             }
-            
+
             if (_player1Score >= 4 || _player2Score >= 4)
             {
                 return GetScoreForGreaterThen4Score();
@@ -77,24 +77,17 @@ namespace Tennis
 
         private string GetScoreForDraw()
         {
-            string score;
             switch (_player1Score)
             {
                 case 0:
-                    score = "Love-All";
-                    break;
+                    return "Love-All";
                 case 1:
-                    score = "Fifteen-All";
-                    break;
+                    return "Fifteen-All";
                 case 2:
-                    score = "Thirty-All";
-                    break;
+                    return "Thirty-All";
                 default:
-                    score = "Deuce";
-                    break;
+                    return "Deuce";
             }
-
-            return score;
         }
     }
 }
